@@ -93,7 +93,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         foodArray.add(foodEditText);
         foodLinearView.addView(foodEditText);
 
-        if(requestFocus) {
+        if (requestFocus) {
             foodEditText.requestFocus();
         }
     }
