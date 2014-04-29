@@ -8,5 +8,7 @@
 
     <string name="splash_title">Launch Selector</string>
     <string name="splash_start">Start</string>
+    <string name="add_button_text">Add</string>
+    <string name="ok_button_text">OK</string>
 
 </resources>

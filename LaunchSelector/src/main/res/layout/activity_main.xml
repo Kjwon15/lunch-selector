@@ -34,7 +34,7 @@
             android:id="@+id/addButton"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/add_button_text"
             android:layout_weight="1"
             android:layout_gravity="center"/>
 
@@ -42,7 +42,7 @@
             android:id="@+id/okButton"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:text="OK"
+            android:text="@string/ok_button_text"
             android:layout_weight="1"
             android:layout_gravity="center"/>
 
