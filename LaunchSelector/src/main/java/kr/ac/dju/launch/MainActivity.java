@@ -40,7 +40,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -59,20 +58,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
-            okButton.setVisibility(View.INVISIBLE);
-            addButton.setVisibility(View.INVISIBLE);
-
-        } else if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
-            okButton.setVisibility(View.VISIBLE);
-            addButton.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
