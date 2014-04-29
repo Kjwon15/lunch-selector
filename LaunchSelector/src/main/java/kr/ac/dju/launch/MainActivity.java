@@ -1,9 +1,8 @@
 package kr.ac.dju.launch;
 
 import android.content.res.Configuration;
-import android.opengl.Visibility;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,19 +26,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addButton = (Button)findViewById(R.id.addButton);
-        okButton = (Button)findViewById(R.id.okButton);
+        addButton = (Button) findViewById(R.id.addButton);
+        okButton = (Button) findViewById(R.id.okButton);
 
         okButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
 
-        foodLinearView = (LinearLayout)findViewById(R.id.foodLinearView);
+        foodLinearView = (LinearLayout) findViewById(R.id.foodLinearView);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -76,8 +75,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if (okButton.getId() == v.getId()) {
 
-        }
-        else if (addButton.getId() == v.getId()) {
+        } else if (addButton.getId() == v.getId()) {
             EditText foodEditText = new EditText(this);
 
             foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
