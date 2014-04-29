@@ -35,7 +35,7 @@
             android:parentActivityName="kr.ac.dju.launch.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="MainActivity" />
+                android:value="kr.ac.dju.launch.MainActivity" />
         </activity>
     </application>
 
