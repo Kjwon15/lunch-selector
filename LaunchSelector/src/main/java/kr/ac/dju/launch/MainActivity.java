@@ -1,5 +1,6 @@
 package kr.ac.dju.launch;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -78,7 +79,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
 
         if (okButton.getId() == v.getId()) {
+            ArrayList<String> foods = new ArrayList<String>();
+            for (EditText et : foodArray) {
+                String content = et.getText().toString().trim();
+                if (content.length() > 0) {
+                    foods.add(content);
+                }
+            }
 
+            Intent intent = new Intent(this, RouletteActivity.class);
+
+            intent.putStringArrayListExtra("foods", foods);
+            startActivity(intent);
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
         }
