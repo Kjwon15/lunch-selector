@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         foodLinearView = (LinearLayout) findViewById(R.id.foodLinearView);
 
         for (int i = 0; i < 2; i++) {
-            addFoodInput();
+            addFoodInput(false);
         }
     }
 
@@ -80,11 +80,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         if (okButton.getId() == v.getId()) {
 
         } else if (addButton.getId() == v.getId()) {
-            addFoodInput();
+            addFoodInput(true);
         }
     }
 
-    private void addFoodInput() {
+    private void addFoodInput(boolean requestFocus) {
         EditText foodEditText = new EditText(this);
 
         foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
@@ -92,5 +92,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         foodArray.add(foodEditText);
         foodLinearView.addView(foodEditText);
+
+        if(requestFocus) {
+            foodEditText.requestFocus();
+        }
     }
 }
