@@ -15,7 +15,7 @@ public class RouletteActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roulette);
 
-        ArrayList<String> foods = getIntent().getStringArrayListExtra("foods");
+        ArrayList<String> foods = getIntent().getStringArrayListExtra(C.EXTRA_NAME_FOODS);
         for (String food : foods) {
             Toast.makeText(this, food, Toast.LENGTH_SHORT).show();
         }

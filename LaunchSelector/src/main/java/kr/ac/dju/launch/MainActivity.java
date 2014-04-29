@@ -89,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             Intent intent = new Intent(this, RouletteActivity.class);
 
-            intent.putStringArrayListExtra("foods", foods);
+            intent.putStringArrayListExtra(C.EXTRA_NAME_FOODS, foods);
             startActivity(intent);
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
