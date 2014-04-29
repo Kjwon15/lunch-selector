@@ -1,28 +1,39 @@
 package kr.ac.dju.launch;
 
+import android.content.res.Configuration;
+import android.opengl.Visibility;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
-public class MainActivity extends ActionBarActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+    Button addButton = null;
+    Button okButton = null;
+
+    LinearLayout foodLinearView = null;
+
+    ArrayList<EditText> foodArray = new ArrayList<EditText>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+        addButton = (Button)findViewById(R.id.addButton);
+        okButton = (Button)findViewById(R.id.okButton);
+
+        okButton.setOnClickListener(this);
+        addButton.setOnClickListener(this);
+
+        foodLinearView = (LinearLayout)findViewById(R.id.foodLinearView);
     }
 
 
@@ -46,20 +57,34 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
-        public PlaceholderFragment() {
-        }
+        if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
+            okButton.setVisibility(View.INVISIBLE);
+            addButton.setVisibility(View.INVISIBLE);
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
+        } else if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
+            okButton.setVisibility(View.VISIBLE);
+            addButton.setVisibility(View.VISIBLE);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+        if (okButton.getId() == v.getId()) {
+
+        }
+        else if (addButton.getId() == v.getId()) {
+            EditText foodEditText = new EditText(this);
+
+            foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            foodArray.add(foodEditText);
+            foodLinearView.addView(foodEditText);
+        }
+    }
 }

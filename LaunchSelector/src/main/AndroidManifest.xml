@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="kr.ac.dju.launch.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name">
         </activity>
         <!-- Splash screen -->
