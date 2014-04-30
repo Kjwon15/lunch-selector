@@ -26,16 +26,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/restart_button_text"
-            android:textSize="@dimen/roulette_button_text_size" />
+            android:text="@string/restart_button_text" />
 
         <Button
             android:id="@+id/stopButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stop_button_text"
-            android:textSize="@dimen/roulette_button_text_size" />
+            android:text="@string/stop_button_text" />
 
     </LinearLayout>
 </RelativeLayout>
