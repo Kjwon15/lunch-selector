@@ -36,7 +36,6 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
         rouletteScheduler.scheduleAtFixedRate(rotator, 0, 10);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

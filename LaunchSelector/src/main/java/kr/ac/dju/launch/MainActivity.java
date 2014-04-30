@@ -21,6 +21,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     ArrayList<EditText> foodArray = new ArrayList<EditText>();
 
+    private static final String BUNDLE_KEY_FOODS = "foods";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,27 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         for (int i = 0; i < 2; i++) {
             addFoodInput(false);
         }
+
+        if (savedInstanceState != null) {
+            restoreFoods(savedInstanceState);
+        }
+    }
+
+    private void restoreFoods(Bundle savedInstanceState) {
+        ArrayList<String> foods = savedInstanceState.getStringArrayList(BUNDLE_KEY_FOODS);
+        for (int i = foodArray.size(); i < foods.size(); i++) {
+            addFoodInput(false);
+        }
+
+        for (int i = 0; i < foods.size(); i++) {
+            foodArray.get(i).setText(foods.get(i));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outBundle) {
+        ArrayList<String> foods = makeArrayList();
+        outBundle.putStringArrayList(BUNDLE_KEY_FOODS, foods);
     }
 
     @Override
@@ -63,13 +86,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
 
         if (okButton.getId() == v.getId()) {
-            ArrayList<String> foods = new ArrayList<String>();
-            for (EditText et : foodArray) {
-                String content = et.getText().toString().trim();
-                if (content.length() > 0) {
-                    foods.add(content);
-                }
-            }
+            ArrayList<String> foods = makeArrayList();
 
             Intent intent = new Intent(this, RouletteActivity.class);
 
@@ -78,6 +95,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
         }
+    }
+
+    private ArrayList<String> makeArrayList() {
+        ArrayList<String> foods = new ArrayList<String>();
+        for (EditText et : foodArray) {
+            String content = et.getText().toString().trim();
+            if (content.length() > 0) {
+                foods.add(content);
+            }
+        }
+        return foods;
     }
 
     private void addFoodInput(boolean requestFocus) {
