@@ -17,7 +17,9 @@ public class SplashActivity extends ActionBarActivity implements View.OnClickLis
         setContentView(R.layout.activity_splash);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
 
         startButton = (Button) findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
