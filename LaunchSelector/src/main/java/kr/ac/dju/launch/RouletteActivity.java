@@ -16,8 +16,10 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
     private TextView rouletteView;
     private Button stopButton;
+    private Button restartButton;
 
-    private Timer rouletteScheduler = new Timer();
+    private Timer rouletteScheduler;
+    ArrayList<String> foods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,27 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
         rouletteView = (TextView) findViewById(R.id.rouletteView);
         stopButton = (Button) findViewById(R.id.stopButton);
+        restartButton = (Button) findViewById(R.id.restartButton);
 
         stopButton.setOnClickListener(this);
+        restartButton.setOnClickListener(this);
 
 
-        ArrayList<String> foods = getIntent().getStringArrayListExtra(C.EXTRA_NAME_FOODS);
+        foods = getIntent().getStringArrayListExtra(C.EXTRA_NAME_FOODS);
+
+        startRoulette();
+    }
+
+    private void startRoulette() {
+        restartButton.setVisibility(View.INVISIBLE);
+        rouletteScheduler = new Timer();
         RouletteRotator rotator = new RouletteRotator(foods);
-
         rouletteScheduler.scheduleAtFixedRate(rotator, 0, 10);
+    }
+
+    private void stopRoulette() {
+        restartButton.setVisibility(View.VISIBLE);
+        rouletteScheduler.cancel();
     }
 
     @Override
@@ -59,7 +74,9 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (stopButton.getId() == view.getId()) {
-            rouletteScheduler.cancel();
+            stopRoulette();
+        } else if (restartButton.getId() == view.getId()) {
+            startRoulette();
         }
     }
 
