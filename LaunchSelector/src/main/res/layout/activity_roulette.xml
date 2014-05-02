@@ -10,11 +10,12 @@
 
     <TextView
         android:id="@+id/rouletteView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_text_margin"
+        android:background="@drawable/background_roulette"
         android:clickable="true"
+        android:gravity="center_horizontal"
         android:textSize="@dimen/roulette_big_text_size" />
 
     <Button
