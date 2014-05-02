@@ -15,7 +15,6 @@ import java.util.TimerTask;
 public class RouletteActivity extends ActionBarActivity implements View.OnClickListener {
 
     private TextView rouletteView;
-    private Button stopButton;
     private Button restartButton;
 
     private Timer rouletteScheduler;
@@ -27,10 +26,9 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
         setContentView(R.layout.activity_roulette);
 
         rouletteView = (TextView) findViewById(R.id.rouletteView);
-        stopButton = (Button) findViewById(R.id.stopButton);
         restartButton = (Button) findViewById(R.id.restartButton);
 
-        stopButton.setOnClickListener(this);
+        rouletteView.setOnClickListener(this);
         restartButton.setOnClickListener(this);
 
 
@@ -73,7 +71,7 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        if (stopButton.getId() == view.getId()) {
+        if (rouletteView.getId() == view.getId()) {
             stopRoulette();
         } else if (restartButton.getId() == view.getId()) {
             startRoulette();
