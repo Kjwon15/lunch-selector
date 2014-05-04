@@ -2,8 +2,12 @@ package kr.ac.dju.launch.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kjwon15 on 2014. 5. 4..
@@ -70,6 +74,41 @@ public class LunchDbAdapter {
         );
 
         return result > 0;
+    }
+
+    public List<Preset> fetchAllPresets() {
+        List<Preset> list = new ArrayList<Preset>();
+        Cursor cursor = db.query(TABLE_PRESETS, new String[]{KEY_ID, KEY_NAME},
+                null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+            String name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
+            List<Element> elements = fetchAllElements(rowid);
+            Preset preset = new Preset(rowid, name, elements);
+            list.add(preset);
+        }
+
+        return list;
+    }
+
+    public List<Element> fetchAllElements(long rowId) {
+        List<Element> list = new ArrayList<Element>();
+        Cursor cursor = db.query(TABLE_ELEMENTS, new String[]{KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
+                null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+            long presetId = cursor.getLong(cursor.getColumnIndex(KEY_PRESET_ID));
+            String content = cursor.getString(cursor.getColumnIndex(KEY_CONTENT));
+            Element element = new Element(rowid, presetId, content);
+
+            list.add(element);
+        }
+
+        return list;
     }
 
 
