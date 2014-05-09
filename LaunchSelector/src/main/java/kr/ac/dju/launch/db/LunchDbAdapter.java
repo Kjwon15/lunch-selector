@@ -120,7 +120,6 @@ public class LunchDbAdapter {
         Cursor cursor = db.query(TABLE_PRESETS, new String[]{KEY_ID, KEY_NAME},
                 null, null, null, null, null);
 
-        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
             String name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
@@ -137,7 +136,6 @@ public class LunchDbAdapter {
         Cursor cursor = db.query(TABLE_ELEMENTS, new String[]{KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
                 null, null, null, null, null);
 
-        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
             long presetId = cursor.getLong(cursor.getColumnIndex(KEY_PRESET_ID));
