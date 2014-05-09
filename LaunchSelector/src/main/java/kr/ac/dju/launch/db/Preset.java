@@ -20,6 +20,10 @@ public class Preset {
         return rowId;
     }
 
+    public void setRowId(long rowId) {
+        this.rowId = rowId;
+    }
+
     public String getName() {
         return name;
     }

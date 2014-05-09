@@ -18,6 +18,18 @@ public class Element {
         return rowId;
     }
 
+    public void setRowId(long rowId) {
+        this.rowId = rowId;
+    }
+
+    public long getPresetId() {
+        return presetId;
+    }
+
+    public void setPresetId(long presetId) {
+        this.presetId = presetId;
+    }
+
     public String getContent() {
         return content;
     }
