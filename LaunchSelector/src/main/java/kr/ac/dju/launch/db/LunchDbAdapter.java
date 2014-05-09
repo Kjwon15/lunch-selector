@@ -43,20 +43,28 @@ public class LunchDbAdapter {
         dbHelper.close();
     }
 
-    public long createPreset(String presetName) {
+    public long createPreset(Preset preset) {
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, presetName);
-        return db.insert(TABLE_PRESETS, null, values);
+        values.put(KEY_NAME, preset.getName());
+        long id = db.insert(TABLE_PRESETS, null, values);
+        preset.setRowId(id);
+        for (Element element : preset.getElementList()) {
+            element.setPresetId(id);
+        }
+        return id;
     }
 
-    public long createElement(long presetId, String content) {
+    public long createElement(Element element) {
         ContentValues values = new ContentValues();
-        values.put(KEY_PRESET_ID, presetId);
-        values.put(KEY_CONTENT, content);
-        return db.insert(TABLE_ELEMENTS, null, values);
+        values.put(KEY_PRESET_ID, element.getPresetId());
+        values.put(KEY_CONTENT, element.getContent());
+        long id = db.insert(TABLE_ELEMENTS, null, values);
+        element.setRowId(id);
+        return id;
     }
 
-    public boolean deletePreset(long rowid) {
+    public boolean deletePreset(Preset preset) {
+        long rowid = preset.getRowId();
         db.delete(TABLE_ELEMENTS, KEY_PRESET_ID + "=?",
                 new String[]{String.valueOf(rowid)}
         );
@@ -68,7 +76,8 @@ public class LunchDbAdapter {
         return result > 0;
     }
 
-    public boolean deleteElement(long rowid) {
+    public boolean deleteElement(Element element) {
+        long rowid = element.getRowId();
         int result = db.delete(TABLE_ELEMENTS, KEY_ID + "=?",
                 new String[]{String.valueOf(rowid)}
         );
