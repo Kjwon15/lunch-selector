@@ -85,6 +85,36 @@ public class LunchDbAdapter {
         return result > 0;
     }
 
+    public boolean updatePreset(Preset preset) {
+        long rowid = preset.getRowId();
+
+        for (Element element : preset.getElementList()) {
+            element.setPresetId(rowid);
+            updateElement(element);
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, preset.getName());
+        long result = db.update(TABLE_PRESETS, values, KEY_ID + "=?",
+                new String[]{String.valueOf(rowid)}
+        );
+
+        return result > 0;
+    }
+
+    public boolean updateElement(Element element) {
+        long rowid = element.getRowId();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRESET_ID, element.getPresetId());
+        values.put(KEY_CONTENT, element.getContent());
+        long result = db.update(TABLE_ELEMENTS, values, KEY_ID + "=?",
+                new String[]{String.valueOf(rowid)}
+        );
+
+        return result > 0;
+    }
+
     public List<Preset> fetchAllPresets() {
         List<Preset> list = new ArrayList<Preset>();
         Cursor cursor = db.query(TABLE_PRESETS, new String[]{KEY_ID, KEY_NAME},
