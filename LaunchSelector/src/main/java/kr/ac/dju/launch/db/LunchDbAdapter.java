@@ -88,6 +88,7 @@ public class LunchDbAdapter {
     public boolean updatePreset(Preset preset) {
         long rowid = preset.getRowId();
 
+        //FIXME: delete unlinked Element with this Preset.
         for (Element element : preset.getElementList()) {
             element.setPresetId(rowid);
             boolean succeed = updateElement(element);
