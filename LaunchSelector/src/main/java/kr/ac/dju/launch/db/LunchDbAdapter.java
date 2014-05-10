@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class LunchDbAdapter {
     private final static String DB_NAME = "lunch_preset.db";
 
     private final static String TABLE_PRESETS = "presets";
-    private final static String TABLE_ELEMENTS = "presets";
+    private final static String TABLE_ELEMENTS = "elements";
     private final static String KEY_ID = "rowid";
     private final static String KEY_NAME = "name";
     private final static String KEY_PRESET_ID = "preset_id";
@@ -31,12 +32,12 @@ public class LunchDbAdapter {
 
     public LunchDbAdapter(Context context) {
         this.context = context;
+        open();
     }
 
-    public LunchDbAdapter open() {
+    private void open() {
         dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
-        return this;
     }
 
     public void close() {
@@ -128,7 +129,10 @@ public class LunchDbAdapter {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
             String name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
             List<Element> elements = fetchAllElements(rowid);
-            Preset preset = new Preset(rowid, name, elements);
+            Preset preset = new Preset();
+            preset.setRowId(rowid);
+            preset.setName(name);
+            preset.setElementList(elements);
             list.add(preset);
         }
 
@@ -144,7 +148,10 @@ public class LunchDbAdapter {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
             long presetId = cursor.getLong(cursor.getColumnIndex(KEY_PRESET_ID));
             String content = cursor.getString(cursor.getColumnIndex(KEY_CONTENT));
-            Element element = new Element(rowid, presetId, content);
+            Element element = new Element();
+            element.setRowId(rowid);
+            element.setPresetId(presetId);
+            element.setContent(content);
 
             list.add(element);
         }
@@ -161,22 +168,26 @@ public class LunchDbAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table ? (" +
-                    "? varchar not null" +
-                    ");" +
-                    new String[]{TABLE_PRESETS,
-                            KEY_NAME}
+            String query;
+            query = MessageFormat.format("create table {0} (" +
+                    "{1} varchar not null" +
+                    ");",
+                    TABLE_PRESETS,
+                    KEY_NAME
+            );
+            db.execSQL(query);
+
+            query = MessageFormat.format("create table {0}(" +
+                    "{1} integer not null," +
+                    "{2} varchar not null," +
+                    "foreign key ({1}) references {3} ({4})" +
+                    ");",
+                    TABLE_ELEMENTS,
+                    KEY_PRESET_ID, KEY_CONTENT,
+                    TABLE_PRESETS, KEY_ID
             );
 
-            db.execSQL("create table ?(" +
-                    "? integer not null," +
-                    "? varchar not null," +
-                    "foreign key (?) references ? (?)" +
-                    ");",
-                    new String[]{TABLE_ELEMENTS,
-                            KEY_PRESET_ID, KEY_CONTENT,
-                            KEY_PRESET_ID, TABLE_PRESETS, KEY_ID}
-            );
+            db.execSQL(query);
         }
 
         @Override
