@@ -90,7 +90,10 @@ public class LunchDbAdapter {
 
         for (Element element : preset.getElementList()) {
             element.setPresetId(rowid);
-            updateElement(element);
+            boolean succeed = updateElement(element);
+            if (! succeed) {
+                createElement(element);
+            }
         }
 
         ContentValues values = new ContentValues();
