@@ -19,6 +19,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
     LinearLayout foodLinearView = null;
 
+    EditText nameEdit;
     ArrayList<EditText> foodArray = new ArrayList<EditText>();
 
     private static final String BUNDLE_KEY_FOODS = "foods";
@@ -28,6 +29,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_preset);
 
+        nameEdit = (EditText) findViewById(R.id.nameEdit);
         addButton = (Button) findViewById(R.id.addButton);
         okButton = (Button) findViewById(R.id.add_complete);
 
