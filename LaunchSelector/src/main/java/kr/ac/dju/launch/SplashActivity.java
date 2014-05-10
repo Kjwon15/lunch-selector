@@ -28,7 +28,7 @@ public class SplashActivity extends ActionBarActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (startButton.getId() == view.getId()) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LunchListViewActivity.class);
             startActivity(intent);
         }
     }
