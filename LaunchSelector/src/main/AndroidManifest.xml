@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="kr.ac.dju.launch.MainActivity"
+            android:name=".EditPresetActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"></activity>
         <!-- Splash screen -->
@@ -33,13 +33,13 @@
             android:name="kr.ac.dju.launch.RouletteActivity"
             android:label="@string/title_activity_roulette"
             android:launchMode="singleInstance"
-            android:parentActivityName="kr.ac.dju.launch.MainActivity">
+            android:parentActivityName=".EditPresetActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="kr.ac.dju.launch.MainActivity" />
         </activity>
         <activity
-            android:name="kr.ac.dju.launch.LunchListViewActivity"
+            android:name=".PresetListActivity"
             android:label="@string/title_activity_lunch_list" />
     </application>
 

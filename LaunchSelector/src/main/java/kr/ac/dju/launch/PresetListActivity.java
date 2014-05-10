@@ -18,7 +18,7 @@ import kr.ac.dju.launch.db.Preset;
 /**
  * Created by hayan on 14. 5. 11.
  */
-public class LunchListViewActivity extends ListActivity implements View.OnClickListener {
+public class PresetListActivity extends ListActivity implements View.OnClickListener {
 
     private Button btnOk;
     private Button btnCancel;
@@ -30,7 +30,7 @@ public class LunchListViewActivity extends ListActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lunch_list_view);
+        setContentView(R.layout.activity_preset_list);
 
         dbAdapter = new LunchDbAdapter(this);
         setListViewItem();

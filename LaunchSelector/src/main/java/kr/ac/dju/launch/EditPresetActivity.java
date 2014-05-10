@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class EditPresetActivity extends ActionBarActivity implements View.OnClickListener {
     Button addButton = null;
     Button okButton = null;
 
@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_edit_preset);
 
         addButton = (Button) findViewById(R.id.addButton);
         okButton = (Button) findViewById(R.id.add_complete);
