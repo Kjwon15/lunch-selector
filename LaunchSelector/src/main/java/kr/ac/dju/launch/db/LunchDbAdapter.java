@@ -129,7 +129,10 @@ public class LunchDbAdapter {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
             String name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
             List<Element> elements = fetchAllElements(rowid);
-            Preset preset = new Preset(rowid, name, elements);
+            Preset preset = new Preset();
+            preset.setRowId(rowid);
+            preset.setName(name);
+            preset.setElementList(elements);
             list.add(preset);
         }
 
@@ -145,7 +148,10 @@ public class LunchDbAdapter {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
             long presetId = cursor.getLong(cursor.getColumnIndex(KEY_PRESET_ID));
             String content = cursor.getString(cursor.getColumnIndex(KEY_CONTENT));
-            Element element = new Element(rowid, presetId, content);
+            Element element = new Element();
+            element.setRowId(rowid);
+            element.setPresetId(presetId);
+            element.setContent(content);
 
             list.add(element);
         }
