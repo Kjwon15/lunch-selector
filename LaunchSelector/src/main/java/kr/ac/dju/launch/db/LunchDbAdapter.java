@@ -31,12 +31,12 @@ public class LunchDbAdapter {
 
     public LunchDbAdapter(Context context) {
         this.context = context;
+        open();
     }
 
-    public LunchDbAdapter open() {
+    private void open() {
         dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
-        return this;
     }
 
     public void close() {
