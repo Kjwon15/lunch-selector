@@ -38,6 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="kr.ac.dju.launch.MainActivity" />
         </activity>
+        <activity
+            android:name="kr.ac.dju.launch.LunchListViewActivity"
+            android:label="@string/title_activity_lunch_list">
+        </activity>
     </application>
 
 </manifest>

@@ -39,7 +39,7 @@
             android:layout_gravity="center"/>
 
         <Button
-            android:id="@+id/okButton"
+            android:id="@+id/add_complete"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:text="@string/ok_button_text"
