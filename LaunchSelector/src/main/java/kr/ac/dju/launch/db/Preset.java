@@ -1,19 +1,18 @@
 package kr.ac.dju.launch.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by kjwon15 on 2014. 5. 4..
  */
 public class Preset {
-    private long rowId;
+    private long rowId = -1;
     private String name;
     private List<Element> elementList;
 
-    public Preset(long rowId, String name, List<Element> elements) {
-        this.rowId = rowId;
-        this.name = name;
-        this.elementList = elements;
+    public Preset() {
+        this.elementList = new ArrayList<Element>();
     }
 
     public long getRowId() {
@@ -28,11 +27,15 @@ public class Preset {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Element> getElementList() {
         return elementList;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setElementList(List<Element> list) {
+        this.elementList = list;
     }
 }

@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         addButton = (Button) findViewById(R.id.addButton);
-        okButton = (Button) findViewById(R.id.okButton);
+        okButton = (Button) findViewById(R.id.add_complete);
 
         okButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
