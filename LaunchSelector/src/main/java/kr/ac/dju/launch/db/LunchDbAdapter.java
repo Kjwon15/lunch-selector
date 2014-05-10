@@ -19,7 +19,7 @@ public class LunchDbAdapter {
     private final static String DB_NAME = "lunch_preset.db";
 
     private final static String TABLE_PRESETS = "presets";
-    private final static String TABLE_ELEMENTS = "presets";
+    private final static String TABLE_ELEMENTS = "elements";
     private final static String KEY_ID = "rowid";
     private final static String KEY_NAME = "name";
     private final static String KEY_PRESET_ID = "preset_id";
