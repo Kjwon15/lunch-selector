@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,22 +162,26 @@ public class LunchDbAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table ? (" +
-                    "? varchar not null" +
-                    ");" +
-                    new String[]{TABLE_PRESETS,
-                            KEY_NAME}
+            String query;
+            query = MessageFormat.format("create table {0} (" +
+                    "{1} varchar not null" +
+                    ");",
+                    TABLE_PRESETS,
+                    KEY_NAME
+            );
+            db.execSQL(query);
+
+            query = MessageFormat.format("create table {0}(" +
+                    "{1} integer not null," +
+                    "{2} varchar not null," +
+                    "foreign key ({1}) references {3} ({4})" +
+                    ");",
+                    TABLE_ELEMENTS,
+                    KEY_PRESET_ID, KEY_CONTENT,
+                    TABLE_PRESETS, KEY_ID
             );
 
-            db.execSQL("create table ?(" +
-                    "? integer not null," +
-                    "? varchar not null," +
-                    "foreign key (?) references ? (?)" +
-                    ");",
-                    new String[]{TABLE_ELEMENTS,
-                            KEY_PRESET_ID, KEY_CONTENT,
-                            KEY_PRESET_ID, TABLE_PRESETS, KEY_ID}
-            );
+            db.execSQL(query);
         }
 
         @Override
