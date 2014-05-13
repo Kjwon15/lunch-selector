@@ -27,24 +27,14 @@ public class LunchDbAdapter {
 
     private Context context;
     private DbHelper dbHelper;
-    private SQLiteDatabase db;
 
 
     public LunchDbAdapter(Context context) {
         this.context = context;
-        open();
-    }
-
-    private void open() {
-        dbHelper = new DbHelper(context);
-        db = dbHelper.getWritableDatabase();
-    }
-
-    public void close() {
-        dbHelper.close();
     }
 
     public long createPreset(Preset preset) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, preset.getName());
         long id = db.insert(TABLE_PRESETS, null, values);
@@ -52,19 +42,23 @@ public class LunchDbAdapter {
         for (Element element : preset.getElementList()) {
             element.setPresetId(id);
         }
+        db.close();
         return id;
     }
 
     public long createElement(Element element) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_PRESET_ID, element.getPresetId());
         values.put(KEY_CONTENT, element.getContent());
         long id = db.insert(TABLE_ELEMENTS, null, values);
         element.setRowId(id);
+        db.close();
         return id;
     }
 
     public boolean deletePreset(Preset preset) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowid = preset.getRowId();
         db.delete(TABLE_ELEMENTS, KEY_PRESET_ID + "=?",
                 new String[]{String.valueOf(rowid)}
@@ -74,19 +68,23 @@ public class LunchDbAdapter {
                 new String[]{String.valueOf(rowid)}
         );
 
+        db.close();
         return result > 0;
     }
 
     public boolean deleteElement(Element element) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowid = element.getRowId();
         int result = db.delete(TABLE_ELEMENTS, KEY_ID + "=?",
                 new String[]{String.valueOf(rowid)}
         );
 
+        db.close();
         return result > 0;
     }
 
     public boolean updatePreset(Preset preset) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowid = preset.getRowId();
 
         //FIXME: delete unlinked Element with this Preset.
@@ -104,10 +102,12 @@ public class LunchDbAdapter {
                 new String[]{String.valueOf(rowid)}
         );
 
+        db.close();
         return result > 0;
     }
 
     public boolean updateElement(Element element) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowid = element.getRowId();
 
         ContentValues values = new ContentValues();
@@ -117,10 +117,12 @@ public class LunchDbAdapter {
                 new String[]{String.valueOf(rowid)}
         );
 
+        db.close();
         return result > 0;
     }
 
     public List<Preset> fetchAllPresets() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Preset> list = new ArrayList<Preset>();
         Cursor cursor = db.query(TABLE_PRESETS, new String[]{KEY_ID, KEY_NAME},
                 null, null, null, null, null);
@@ -136,10 +138,12 @@ public class LunchDbAdapter {
             list.add(preset);
         }
 
+        db.close();
         return list;
     }
 
     public List<Element> fetchAllElements(long rowId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Element> list = new ArrayList<Element>();
         Cursor cursor = db.query(TABLE_ELEMENTS, new String[]{KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
                 null, null, null, null, null);
@@ -156,6 +160,7 @@ public class LunchDbAdapter {
             list.add(element);
         }
 
+        db.close();
         return list;
     }
 
