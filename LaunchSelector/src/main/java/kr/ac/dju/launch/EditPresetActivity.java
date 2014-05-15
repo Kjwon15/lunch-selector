@@ -1,6 +1,8 @@
 package kr.ac.dju.launch;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -22,6 +24,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     EditText nameEdit;
     ArrayList<EditText> foodArray = new ArrayList<EditText>();
 
+    final Context context = this;
     private static final String BUNDLE_KEY_FOODS = "foods";
 
     @Override
@@ -86,17 +89,41 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-
         if (okButton.getId() == v.getId()) {
-            ArrayList<String> foods = makeArrayList();
-
-            Intent intent = new Intent(this, RouletteActivity.class);
-
-            intent.putStringArrayListExtra(C.EXTRA_NAME_FOODS, foods);
-            startActivity(intent);
+            createPresetAndInsertDB();
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
         }
+    }
+
+    private void createPresetAndInsertDB() {
+        String presetName = "";
+
+        do {
+            presetName = makePresetDialog();
+        } while (presetName.length() == 0 || presetName.matches("^\\s+$"));
+
+        // TODO: Create preset and insert DB.
+    }
+
+    private String makePresetDialog() {
+        AlertDialog.Builder presetDlg = new AlertDialog.Builder(this);
+        final EditText presetName = new EditText(this);
+
+        presetName.setHint(R.string.enter_preset_name);
+        presetDlg.setPositiveButton(R.string.ok_button_text, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        presetDlg.setNegativeButton(R.string.cancel_button_text, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        presetDlg.setView(presetName);
+        return presetName.getText().toString();
     }
 
     private ArrayList<String> makeArrayList() {
@@ -113,8 +140,8 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     private void addFoodInput(boolean requestFocus) {
         EditText foodEditText = new EditText(this);
 
-        foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        setLayoutWidthHeight(foodEditText,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         foodArray.add(foodEditText);
         foodLinearView.addView(foodEditText);
@@ -122,5 +149,10 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         if (requestFocus) {
             foodEditText.requestFocus();
         }
+    }
+
+    private void setLayoutWidthHeight(View view, int width, int height) {
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width, height);
+        view.setLayoutParams(layoutParams);
     }
 }
