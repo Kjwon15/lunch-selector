@@ -31,6 +31,7 @@ public class LunchDbAdapter {
 
     public LunchDbAdapter(Context context) {
         this.context = context;
+        this.dbHelper = new DbHelper(context);
     }
 
     public long createPreset(Preset preset) {
