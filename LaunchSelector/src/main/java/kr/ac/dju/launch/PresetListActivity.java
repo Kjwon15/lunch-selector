@@ -2,6 +2,7 @@ package kr.ac.dju.launch;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,8 +55,8 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
     }
 
     private void InitControllerObject() {
-        btnOk = (Button) findViewById(R.id.select_ok);
-        btnCancel = (Button) findViewById(R.id.select_cancel);
+        btnOk = (Button) findViewById(R.id.btn_select_ok);
+        btnCancel = (Button) findViewById(R.id.btn_add_preset);
 
         btnOk.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
@@ -64,7 +65,23 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        // TODO : event process for buttons
+        switch (v.getId()) {
+            case R.id.btn_add_preset:
+                clickedButtonAddPreset();
+                break;
+            case R.id.btn_select_ok:
+                clickedButtonSelectOK();
+                break;
+        }
+    }
+
+    private void clickedButtonAddPreset() {
+        Intent intent = new Intent(this, EditPresetActivity.class);
+        startActivity(intent);
+    }
+
+    private void clickedButtonSelectOK() {
+        // TODO: make string arrays from elements in DB and send roulette.
     }
 
     private class PresetAdapter extends BaseAdapter {
