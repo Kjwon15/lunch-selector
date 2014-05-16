@@ -87,9 +87,21 @@ public class LunchDbAdapter {
     public boolean updatePreset(Preset preset) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowid = preset.getRowId();
+        List<Element> elements = preset.getElementList();
 
-        //FIXME: delete unlinked Element with this Preset.
-        for (Element element : preset.getElementList()) {
+        String[] whereArgs = new String[elements.size()];
+        String whereInClause = "";
+        for (int i=0; i<elements.size(); i++) {
+            if (i != 0) {
+                whereInClause += ", ";
+            }
+            whereInClause += "?";
+            whereArgs[i] = String.valueOf(elements.get(i).getRowId());
+        }
+        String whereClause = MessageFormat.format("rowid not in ({0})", whereInClause);
+        db.delete(TABLE_ELEMENTS, whereClause, whereArgs);
+
+        for (Element element : elements) {
             element.setPresetId(rowid);
             boolean succeed = updateElement(element);
             if (! succeed) {
