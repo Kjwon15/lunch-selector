@@ -1,5 +1,6 @@
 package kr.ac.dju.launch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -41,12 +42,29 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
         foodLinearView = (LinearLayout) findViewById(R.id.foodLinearView);
 
-        for (int i = 0; i < 2; i++) {
+        Intent intent = getIntent();
+
+        String[] foodList = intent.getStringArrayExtra("food_list");
+        int editTextCount = foodList != null ? foodList.length : 2;
+
+        for (int i = 0; i < editTextCount; i++) {
             addFoodInput(false);
         }
 
+        setFoodArrayDefaultText(foodList);
+
         if (savedInstanceState != null) {
             restoreFoods(savedInstanceState);
+        }
+    }
+
+    private void setFoodArrayDefaultText(String[] foodList) {
+        if (foodList != null) {
+            int count = 0;
+
+            for (EditText editText : foodArray) {
+                editText.setText(foodList[count++]);
+            }
         }
     }
 
@@ -70,6 +88,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (okButton.getId() == v.getId()) {
+
             checkValidNameAndInsertDB();
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
