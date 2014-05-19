@@ -22,7 +22,7 @@ import kr.ac.dju.launch.db.Preset;
 public class PresetListActivity extends ListActivity implements View.OnClickListener {
 
     private Button btnOk;
-    private Button btnCancel;
+    private Button btnAdd;
 
     private LunchDbAdapter dbAdapter;
     private PresetAdapter presetAdapter;
@@ -56,22 +56,19 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
 
     private void InitControllerObject() {
         btnOk = (Button) findViewById(R.id.btn_select_ok);
-        btnCancel = (Button) findViewById(R.id.btn_add_preset);
+        btnAdd = (Button) findViewById(R.id.btn_add_preset);
 
         btnOk.setOnClickListener(this);
-        btnCancel.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_add_preset:
-                clickedButtonAddPreset();
-                break;
-            case R.id.btn_select_ok:
-                clickedButtonSelectOK();
-                break;
+        if (v.getId() == btnOk.getId()) {
+            clickedButtonSelectOK();
+        } else if (v.getId() == btnAdd.getId()) {
+            clickedButtonAddPreset();
         }
     }
 
