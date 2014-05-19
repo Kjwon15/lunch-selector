@@ -145,7 +145,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         if (presetNameString.equals("") || presetNameString.matches("^\\s+$")) {
             ToastErrorString(R.string.prset_name_empty_error);
         } else {
-            if (presetName.isEnabled()) {
+            if (presetName.isEnabled() == false) {
                 updatePresetDB(presetNameString);
             } else {
                 insertPresetDB(presetNameString);

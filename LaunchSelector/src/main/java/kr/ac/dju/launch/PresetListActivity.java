@@ -74,6 +74,7 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
 
     private void clickedButtonAddPreset() {
         Intent intent = new Intent(this, EditPresetActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
