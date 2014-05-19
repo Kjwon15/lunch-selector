@@ -41,6 +41,9 @@
         <activity
             android:name=".PresetListActivity"
             android:label="@string/title_activity_lunch_list" />
+
+        <receiver android:name=".alarm.AlarmReceiver" />
+
     </application>
 
 </manifest>
