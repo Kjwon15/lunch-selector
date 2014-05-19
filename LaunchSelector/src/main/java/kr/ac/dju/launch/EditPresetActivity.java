@@ -1,30 +1,29 @@
 package kr.ac.dju.launch;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kr.ac.dju.launch.db.Element;
+import kr.ac.dju.launch.db.LunchDbAdapter;
+import kr.ac.dju.launch.db.Preset;
+
 public class EditPresetActivity extends ActionBarActivity implements View.OnClickListener {
-    Button addButton = null;
-    Button okButton = null;
+    private Button addButton = null;
+    private Button okButton = null;
 
-    LinearLayout foodLinearView = null;
+    private LinearLayout foodLinearView = null;
 
-    EditText nameEdit;
-    ArrayList<EditText> foodArray = new ArrayList<EditText>();
+    private EditText presetNameEdit;
+    private ArrayList<EditText> foodArray = new ArrayList<EditText>();
 
-    final Context context = this;
     private static final String BUNDLE_KEY_FOODS = "foods";
 
     @Override
@@ -32,9 +31,10 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_preset);
 
-        nameEdit = (EditText) findViewById(R.id.nameEdit);
         addButton = (Button) findViewById(R.id.addButton);
         okButton = (Button) findViewById(R.id.add_complete);
+
+        presetNameEdit = (EditText) findViewById(R.id.preset_name);
 
         okButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
@@ -70,40 +70,10 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (okButton.getId() == v.getId()) {
-            createPresetAndInsertDB();
+            checkValidNameAndInsertDB();
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
         }
-    }
-
-    private void createPresetAndInsertDB() {
-        String presetName = "";
-
-        do {
-            presetName = makePresetDialog();
-        } while (presetName.length() == 0 || presetName.matches("^\\s+$"));
-
-        // TODO: Create preset and insert DB.
-    }
-
-    private String makePresetDialog() {
-        AlertDialog.Builder presetDlg = new AlertDialog.Builder(this);
-        final EditText presetName = new EditText(this);
-
-        presetName.setHint(R.string.enter_preset_name);
-        presetDlg.setPositiveButton(R.string.ok_button_text, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        presetDlg.setNegativeButton(R.string.cancel_button_text, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        presetDlg.setView(presetName);
-        return presetName.getText().toString();
     }
 
     private ArrayList<String> makeArrayList() {
@@ -119,9 +89,8 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
     private void addFoodInput(boolean requestFocus) {
         EditText foodEditText = new EditText(this);
-
-        setLayoutWidthHeight(foodEditText,
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         foodArray.add(foodEditText);
         foodLinearView.addView(foodEditText);
@@ -131,8 +100,35 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         }
     }
 
-    private void setLayoutWidthHeight(View view, int width, int height) {
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width, height);
-        view.setLayoutParams(layoutParams);
+    private void checkValidNameAndInsertDB() {
+        String presetName = presetNameEdit.getText().toString();
+
+        if (presetName.equals("") || presetName.matches("^\\s+$")) {
+            ToastErrorString(R.string.prset_name_empty_error);
+        } else {
+            insertPresetDB(presetName);
+        }
+    }
+
+    private void insertPresetDB(String presetName) {
+        LunchDbAdapter dbAdapter = new LunchDbAdapter(this);
+        Preset preset = new Preset();
+
+        ArrayList<Element> elements = new ArrayList<Element>();
+        ArrayList<String> foods = makeArrayList();
+
+        preset.setName(presetName);
+
+        for (String food : foods) {
+            Element element = new Element();
+            elements.add(element);
+        }
+
+        preset.setElementList(elements);
+        dbAdapter.createPreset(preset);
+    }
+
+    private void ToastErrorString(int resId) {
+        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
     }
 }

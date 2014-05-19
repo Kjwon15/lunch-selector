@@ -18,4 +18,6 @@
     <string name="text_list_empty">Preset doesn\'t exists.</string>
 
     <string name="enter_preset_name">Enter your preset name</string>
+    <string name="hint_preset_name">please enter preset name</string>
+    <string name="prset_name_empty_error">preset name cannnot be empty.</string>
 </resources>
