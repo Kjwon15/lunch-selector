@@ -22,8 +22,10 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
     private LinearLayout foodLinearView = null;
 
-    private EditText presetNameEdit;
-    private ArrayList<EditText> foodArray = new ArrayList<EditText>();
+    private EditText currentPresetName;
+    private ArrayList<EditText> foodList = new ArrayList<EditText>();
+
+    private String prevPresetName;
 
     private static final String BUNDLE_KEY_FOODS = "foods";
 
@@ -35,34 +37,72 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         addButton = (Button) findViewById(R.id.addButton);
         okButton = (Button) findViewById(R.id.add_complete);
 
-        presetNameEdit = (EditText) findViewById(R.id.preset_name);
+        currentPresetName = (EditText) findViewById(R.id.preset_name);
 
         okButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
 
         foodLinearView = (LinearLayout) findViewById(R.id.foodLinearView);
 
-        Intent intent = getIntent();
-
-        String[] foodList = intent.getStringArrayExtra("food_list");
-        int editTextCount = foodList != null ? foodList.length : 2;
-
-        for (int i = 0; i < editTextCount; i++) {
-            addFoodInput(false);
-        }
-
-        setFoodArrayDefaultText(foodList);
+        setInterface();
 
         if (savedInstanceState != null) {
             restoreFoods(savedInstanceState);
         }
     }
 
-    private void setFoodArrayDefaultText(String[] foodList) {
+    private void setInterface() {
+        Intent intent = getIntent();
+
+        prevPresetName = intent.getStringExtra("preset_name");
+        String[] foodArray = intent.getStringArrayExtra("food_list");
+
+        if (isUpdate()) {
+            setInterfaceForUpdate(foodArray);
+        } else {
+            setInterfaceForInsert();
+        }
+    }
+
+    public boolean isUpdate() {
+        return prevPresetName.length() != 0;
+    }
+
+    private void setInterfaceForUpdate(String[] foodArray) {
+        currentPresetName.setText(prevPresetName);
+
+        for (int i = 0; i < foodArray.length; i++) {
+            addFoodInput(false);
+            foodList.get(i).setText(foodArray[i]);
+        }
+
+        okButton.setText(R.string.preset_update_button);
+    }
+
+    private void addFoodInput(boolean requestFocus) {
+        EditText foodEditText = new EditText(this);
+        foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        foodList.add(foodEditText);
+        foodLinearView.addView(foodEditText);
+
+        if (requestFocus) {
+            foodEditText.requestFocus();
+        }
+    }
+
+    private void setInterfaceForInsert() {
+        for (int i = 0; i < 2; i++) {
+            addFoodInput(false);
+        }
+    }
+
+    private void setFoodArrayText(String[] foodList) {
         if (foodList != null) {
             int count = 0;
 
-            for (EditText editText : foodArray) {
+            for (EditText editText : this.foodList) {
                 editText.setText(foodList[count++]);
             }
         }
@@ -70,12 +110,12 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
     private void restoreFoods(Bundle savedInstanceState) {
         ArrayList<String> foods = savedInstanceState.getStringArrayList(BUNDLE_KEY_FOODS);
-        for (int i = foodArray.size(); i < foods.size(); i++) {
+        for (int i = foodList.size(); i < foods.size(); i++) {
             addFoodInput(false);
         }
 
         for (int i = 0; i < foods.size(); i++) {
-            foodArray.get(i).setText(foods.get(i));
+            foodList.get(i).setText(foods.get(i));
         }
     }
 
@@ -83,6 +123,17 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     public void onSaveInstanceState(Bundle outBundle) {
         ArrayList<String> foods = makeArrayList();
         outBundle.putStringArrayList(BUNDLE_KEY_FOODS, foods);
+    }
+
+    private ArrayList<String> makeArrayList() {
+        ArrayList<String> foods = new ArrayList<String>();
+        for (EditText et : foodList) {
+            String content = et.getText().toString().trim();
+            if (content.length() > 0) {
+                foods.add(content);
+            }
+        }
+        return foods;
     }
 
     @Override
@@ -95,38 +146,18 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         }
     }
 
-    private ArrayList<String> makeArrayList() {
-        ArrayList<String> foods = new ArrayList<String>();
-        for (EditText et : foodArray) {
-            String content = et.getText().toString().trim();
-            if (content.length() > 0) {
-                foods.add(content);
-            }
-        }
-        return foods;
-    }
-
-    private void addFoodInput(boolean requestFocus) {
-        EditText foodEditText = new EditText(this);
-        foodEditText.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        foodArray.add(foodEditText);
-        foodLinearView.addView(foodEditText);
-
-        if (requestFocus) {
-            foodEditText.requestFocus();
-        }
-    }
-
     private void checkValidNameAndInsertDB() {
-        String presetName = presetNameEdit.getText().toString();
+        String presetName = this.currentPresetName.getText().toString();
 
         if (presetName.equals("") || presetName.matches("^\\s+$")) {
             ToastErrorString(R.string.prset_name_empty_error);
         } else {
             insertPresetDB(presetName);
         }
+    }
+
+    private void ToastErrorString(int resId) {
+        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
     }
 
     private void insertPresetDB(String presetName) {
@@ -145,9 +176,5 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
         preset.setElementList(elements);
         dbAdapter.createPreset(preset);
-    }
-
-    private void ToastErrorString(int resId) {
-        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
     }
 }
