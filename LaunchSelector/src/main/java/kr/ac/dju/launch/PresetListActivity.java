@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,6 +30,8 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
     private LunchDbAdapter dbAdapter;
     private PresetAdapter presetAdapter;
     private List<Preset> presetList;
+
+    private ListView presetListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +65,15 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
 
         btnOk.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
+
+        this.getListView().setSelector(R.drawable.background_selected_listview);
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        v.setSelected(true);
+    }
 
     @Override
     public void onClick(View v) {
