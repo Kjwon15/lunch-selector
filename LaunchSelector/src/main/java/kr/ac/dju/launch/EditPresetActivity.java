@@ -22,10 +22,8 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
     private LinearLayout foodLinearView = null;
 
-    private EditText currentPresetName;
+    private EditText presetName;
     private ArrayList<EditText> foodList = new ArrayList<EditText>();
-
-    private String prevPresetName;
 
     private static final String BUNDLE_KEY_FOODS = "foods";
 
@@ -37,7 +35,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         addButton = (Button) findViewById(R.id.addButton);
         okButton = (Button) findViewById(R.id.add_complete);
 
-        currentPresetName = (EditText) findViewById(R.id.preset_name);
+        presetName = (EditText) findViewById(R.id.preset_name);
 
         okButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
@@ -54,22 +52,18 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     private void setInterface() {
         Intent intent = getIntent();
 
-        prevPresetName = intent.getStringExtra("preset_name");
+        presetName.setText(intent.getStringExtra("preset_name"));
         String[] foodArray = intent.getStringArrayExtra("food_list");
 
-        if (isUpdate()) {
+        if (presetName.length() != 0) {
             setInterfaceForUpdate(foodArray);
         } else {
             setInterfaceForInsert();
         }
     }
 
-    public boolean isUpdate() {
-        return prevPresetName.length() != 0;
-    }
-
     private void setInterfaceForUpdate(String[] foodArray) {
-        currentPresetName.setText(prevPresetName);
+        presetName.setEnabled(false);
 
         for (int i = 0; i < foodArray.length; i++) {
             addFoodInput(false);
@@ -139,21 +133,49 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (okButton.getId() == v.getId()) {
-
-            checkValidNameAndInsertDB();
+            checkValidNameAndDBDataManipulation();
         } else if (addButton.getId() == v.getId()) {
             addFoodInput(true);
         }
     }
 
-    private void checkValidNameAndInsertDB() {
-        String presetName = this.currentPresetName.getText().toString();
+    private void checkValidNameAndDBDataManipulation() {
+        String presetNameString = this.presetName.getText().toString();
 
-        if (presetName.equals("") || presetName.matches("^\\s+$")) {
+        if (presetNameString.equals("") || presetNameString.matches("^\\s+$")) {
             ToastErrorString(R.string.prset_name_empty_error);
         } else {
-            insertPresetDB(presetName);
+            if (presetName.isEnabled()) {
+                updatePresetDB(presetNameString);
+            } else {
+                insertPresetDB(presetNameString);
+            }
+            
+            startPresetListActivity();
         }
+    }
+
+    private void updatePresetDB(String presetName) {
+        LunchDbAdapter dbAdapter = new LunchDbAdapter(this);
+
+        Preset preset = new Preset();
+        ArrayList<String> foods = makeArrayList();
+
+        preset.setName(presetName);
+        preset.setElementList(makeElementList(foods));
+
+        dbAdapter.updatePreset(preset);
+    }
+
+    private ArrayList<Element> makeElementList(ArrayList<String> foods) {
+        ArrayList<Element> elements = new ArrayList<Element>();
+
+        for (String food : foods) {
+            Element element = new Element();
+            elements.add(element);
+        }
+
+        return elements;
     }
 
     private void ToastErrorString(int resId) {
@@ -164,17 +186,19 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         LunchDbAdapter dbAdapter = new LunchDbAdapter(this);
         Preset preset = new Preset();
 
-        ArrayList<Element> elements = new ArrayList<Element>();
         ArrayList<String> foods = makeArrayList();
+        ArrayList<Element> elements = makeElementList(foods);
 
         preset.setName(presetName);
-
-        for (String food : foods) {
-            Element element = new Element();
-            elements.add(element);
-        }
-
         preset.setElementList(elements);
+
         dbAdapter.createPreset(preset);
+    }
+
+    private void startPresetListActivity() {
+        Intent intent = new Intent(this, PresetListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
     }
 }
