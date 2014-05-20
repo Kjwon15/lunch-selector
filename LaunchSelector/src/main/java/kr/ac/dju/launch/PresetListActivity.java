@@ -122,6 +122,7 @@ public class PresetListActivity extends ListActivity implements OnClickListener,
                     startActivity(intent);
                 } else if (which == 1) {
                     dbAdapter.deletePreset(preset);
+                    invalidateListViewItem();
                 }
             }
         });
