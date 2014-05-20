@@ -114,6 +114,9 @@ public class LunchDbAdapter {
             }
         }
 
+        if (db.isOpen() == false) {
+            db = dbHelper.getWritableDatabase();
+        }
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, preset.getName());
         long result = db.update(TABLE_PRESETS, values, KEY_ID + "=?",
