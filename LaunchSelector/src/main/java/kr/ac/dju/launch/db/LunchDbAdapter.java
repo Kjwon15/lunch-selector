@@ -158,8 +158,11 @@ public class LunchDbAdapter {
     public List<Element> fetchAllElements(long rowId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Element> list = new ArrayList<Element>();
-        Cursor cursor = db.query(TABLE_ELEMENTS, new String[]{KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
-                null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_ELEMENTS,
+                new String[] {KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
+                KEY_PRESET_ID + "=?",
+                new String[]{String.valueOf(rowId)},
+                null, null, null);
 
         while (cursor.moveToNext()) {
             long rowid = cursor.getLong(cursor.getColumnIndex(KEY_ID));
