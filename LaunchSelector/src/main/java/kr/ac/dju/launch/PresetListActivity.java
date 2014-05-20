@@ -1,7 +1,9 @@
 package kr.ac.dju.launch;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,10 +12,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,7 +27,7 @@ import kr.ac.dju.launch.db.Preset;
 /**
  * Created by hayan on 14. 5. 11.
  */
-public class PresetListActivity extends ListActivity implements OnClickListener, OnItemClickListener {
+public class PresetListActivity extends ListActivity implements OnClickListener, OnItemClickListener, OnItemLongClickListener {
 
     private Button btnAdd;
 
@@ -53,7 +57,9 @@ public class PresetListActivity extends ListActivity implements OnClickListener,
         presetAdapter = new PresetAdapter(this, presetList);
 
         setListAdapter(presetAdapter);
-        this.getListView().setOnItemClickListener(this);
+        ListView listView = getListView();
+        listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
     }
 
     private void invalidateListViewItem() {
@@ -96,6 +102,32 @@ public class PresetListActivity extends ListActivity implements OnClickListener,
         long rowid = selectedPreset.getRowId();
         intent.putExtra(C.EXTRA_PRESET_ROWID, rowid);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        final String[] items = new String[] {
+                getString(R.string.action_modify),
+                getString(R.string.action_delete),
+        };
+        final Preset preset = (Preset) parent.getAdapter().getItem(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = new Intent(getApplicationContext(), EditPresetActivity.class);
+                    intent.putExtra(C.EXTRA_PRESET_ROWID, preset.getRowId());
+                    startActivity(intent);
+                } else if (which == 1) {
+                    dbAdapter.deletePreset(preset);
+                }
+            }
+        });
+        builder.setTitle(preset.getName());
+        builder.create().show();
+        return false;
     }
 
     private class PresetAdapter extends BaseAdapter {

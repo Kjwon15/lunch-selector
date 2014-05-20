@@ -22,4 +22,6 @@
     <string name="hint_preset_name">Please enter preset name</string>
     <string name="preset_name_empty_error">Preset name can not be empty.</string>
     <string name="preset_update_button">Update</string>
+    <string name="action_modify">Modify</string>
+    <string name="action_delete">Delete</string>
 </resources>
