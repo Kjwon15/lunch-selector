@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">食事のセレクター</string>
+    <string name="action_settings">設定</string>
+    <string name="title_activity_splash">食事のセレクター</string>
+    <string name="splash_title">食事のセレクター</string>
+    <string name="splash_start">スタート</string>
+    <string name="add_button_text">アイテム追加</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="ok_button_text">はい</string>
+    <string name="add_list_button_text">プリセットの追加</string>
+
+    <string name="title_activity_roulette">ルーレット</string>
+    <string name="restart_button_text">もう一度回し</string>
+    <string name="title_activity_lunch_list">プリセットのリスト</string>
+    <string name="text_list_empty">プリセットがいないです。</string>
+    <string name="text_title_roulette">今日の{0}は。。。</string>
+
+    <string name="hint_preset_name">プリセート名</string>
+    <string name="preset_name_empty_error">プリセット名を空白にする事は出来ません。</string>
+    <string name="preset_update_button">保存する。</string>
+    <string name="action_modify">変更する。</string>
+    <string name="action_delete">削除する。</string>
+</resources>
