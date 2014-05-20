@@ -3,7 +3,7 @@
 
     <string name="app_name">Lunch Selector</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_splash">Lunch Selecter</string>
+    <string name="title_activity_splash">Lunch Selector</string>
     <string name="splash_title">Lunch Selector</string>
     <string name="splash_start">Start</string>
     <string name="add_button_text">Add</string>
@@ -19,7 +19,7 @@
     <string name="text_title_roulette">Today\'\'s menu for {0} is...</string>
 
     <string name="enter_preset_name">Enter your preset name</string>
-    <string name="hint_preset_name">please enter preset name</string>
-    <string name="prset_name_empty_error">preset name cannnot be empty.</string>
+    <string name="hint_preset_name">Please enter preset name</string>
+    <string name="preset_name_empty_error">Preset name can not be empty.</string>
     <string name="preset_update_button">Update</string>
 </resources>

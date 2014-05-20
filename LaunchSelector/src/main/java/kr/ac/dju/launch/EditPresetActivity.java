@@ -131,7 +131,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
         String presetNameString = this.presetName.getText().toString();
 
         if (presetNameString.trim().equals("")) {
-            ToastErrorString(R.string.prset_name_empty_error);
+            ToastErrorString(R.string.preset_name_empty_error);
         } else {
             preset.setName(presetNameString);
             preset.setElementList(makeElementList());
