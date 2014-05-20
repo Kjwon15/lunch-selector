@@ -69,11 +69,11 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == btnAdd.getId()) {
-            clickedButtonAddPreset();
+            startAddPresetActivity();
         }
     }
 
-    private void clickedButtonAddPreset() {
+    private void startAddPresetActivity() {
         Intent intent = new Intent(this, EditPresetActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
