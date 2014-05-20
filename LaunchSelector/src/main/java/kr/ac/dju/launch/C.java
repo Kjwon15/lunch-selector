@@ -5,4 +5,5 @@ package kr.ac.dju.launch;
  */
 public class C {
     public static final String EXTRA_NAME_FOODS = "foods";
+    public static final String EXTRA_PRESET_ROWID = "preset_rowid";
 }

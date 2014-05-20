@@ -7,8 +7,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import kr.ac.dju.launch.db.Element;
+import kr.ac.dju.launch.db.LunchDbAdapter;
+import kr.ac.dju.launch.db.Preset;
 
 public class RouletteActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -16,12 +21,15 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
     private Button restartButton;
 
     private Timer rouletteScheduler;
-    ArrayList<String> foods;
+    List<Element> foods;
+    LunchDbAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roulette);
+
+        dbAdapter = new LunchDbAdapter(this);
 
         rouletteView = (TextView) findViewById(R.id.rouletteView);
         restartButton = (Button) findViewById(R.id.restartButton);
@@ -30,7 +38,8 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
         restartButton.setOnClickListener(this);
 
 
-        foods = getIntent().getStringArrayListExtra(C.EXTRA_NAME_FOODS);
+        long rowid = getIntent().getLongExtra(C.EXTRA_PRESET_ROWID, -1);
+        foods = dbAdapter.fetchAllElements(rowid);
 
         startRoulette();
     }
@@ -58,10 +67,10 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
     private class RouletteRotator extends TimerTask {
 
-        private ArrayList<String> items;
+        private List<Element> items;
         private int index = 0;
 
-        public RouletteRotator(ArrayList<String> items) {
+        public RouletteRotator(List<Element> items) {
             this.items = items;
         }
 
@@ -70,7 +79,7 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    rouletteView.setText(items.get(index));
+                    rouletteView.setText(items.get(index).getContent());
                 }
             });
             index = (index + 1) % items.size();

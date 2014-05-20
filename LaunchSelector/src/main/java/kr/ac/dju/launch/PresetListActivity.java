@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,7 +23,7 @@ import kr.ac.dju.launch.db.Preset;
 /**
  * Created by hayan on 14. 5. 11.
  */
-public class PresetListActivity extends ListActivity implements View.OnClickListener {
+public class PresetListActivity extends ListActivity implements OnClickListener, OnItemClickListener {
 
     private Button btnAdd;
 
@@ -44,6 +47,7 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
         presetAdapter = new PresetAdapter(this, presetList);
 
         setListAdapter(presetAdapter);
+        this.getListView().setOnItemClickListener(this);
     }
 
     private void invalidateListViewItem() {
@@ -76,6 +80,15 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
     private void startAddPresetActivity() {
         Intent intent = new Intent(this, EditPresetActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Preset selectedPreset = (Preset) parent.getAdapter().getItem(position);
+        Intent intent = new Intent(this, RouletteActivity.class);
+        long rowid = selectedPreset.getRowId();
+        intent.putExtra(C.EXTRA_PRESET_ROWID, rowid);
         startActivity(intent);
     }
 
