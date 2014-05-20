@@ -142,7 +142,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
     private void checkValidNameAndDBDataManipulation() {
         String presetNameString = this.presetName.getText().toString();
 
-        if (presetNameString.equals("") || presetNameString.matches("^\\s+$")) {
+        if (presetNameString.trim().equals("")) {
             ToastErrorString(R.string.prset_name_empty_error);
         } else {
             if (presetName.isEnabled() == false) {
