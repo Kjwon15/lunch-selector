@@ -172,6 +172,7 @@ public class EditPresetActivity extends ActionBarActivity implements View.OnClic
 
         for (String food : foods) {
             Element element = new Element();
+            element.setContent(food);
             elements.add(element);
         }
 
