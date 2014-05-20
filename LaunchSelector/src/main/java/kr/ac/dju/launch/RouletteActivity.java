@@ -21,7 +21,7 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
     private Button restartButton;
 
     private Timer rouletteScheduler;
-    List<Element> foods;
+    Preset foods;
     LunchDbAdapter dbAdapter;
 
     @Override
@@ -39,7 +39,7 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
 
         long rowid = getIntent().getLongExtra(C.EXTRA_PRESET_ROWID, -1);
-        foods = dbAdapter.fetchAllElements(rowid);
+        foods = dbAdapter.getPreset(rowid);
 
         startRoulette();
     }
@@ -67,22 +67,23 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
     private class RouletteRotator extends TimerTask {
 
-        private List<Element> items;
+        private Preset preset;
         private int index = 0;
 
-        public RouletteRotator(List<Element> items) {
-            this.items = items;
+        public RouletteRotator(Preset preset) {
+            this.preset = preset;
         }
 
         @Override
         public void run() {
+            final List<Element> list = preset.getElementList();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    rouletteView.setText(items.get(index).getContent());
+                    rouletteView.setText(list.get(index).getContent());
                 }
             });
-            index = (index + 1) % items.size();
+            index = (index + 1) % list.size();
         }
     }
 

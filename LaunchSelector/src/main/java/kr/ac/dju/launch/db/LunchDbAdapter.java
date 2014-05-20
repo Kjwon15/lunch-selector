@@ -135,6 +135,24 @@ public class LunchDbAdapter {
         return result > 0;
     }
 
+    public Preset getPreset(long rowId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PRESETS,
+                new String[] {KEY_ID, KEY_NAME},
+                KEY_ID + "=?", new String[]{String.valueOf(rowId)},
+                null, null, null);
+        if (cursor.moveToNext()) {
+            int indexRowId = cursor.getColumnIndex(KEY_ID);
+            int indexName = cursor.getColumnIndex(KEY_NAME);
+            Preset preset = new Preset();
+            preset.setRowId(cursor.getLong(indexRowId));
+            preset.setName(cursor.getString(indexName));
+            preset.setElementList(fetchAllElements(rowId));
+            return preset;
+        }
+        return null;
+    }
+
     public List<Preset> fetchAllPresets() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Preset> list = new ArrayList<Preset>();
