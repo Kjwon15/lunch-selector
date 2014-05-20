@@ -42,6 +42,7 @@ public class LunchDbAdapter {
         preset.setRowId(id);
         for (Element element : preset.getElementList()) {
             element.setPresetId(id);
+            createElement(element);
         }
         db.close();
         return id;
