@@ -12,13 +12,11 @@
     <string name="add_list_button_text">Add Preset</string>
 
     <string name="title_activity_roulette">Roulette</string>
-    <string name="stop_button_text">Stop</string>
     <string name="restart_button_text">Restart</string>
     <string name="title_activity_lunch_list">Lunch List</string>
     <string name="text_list_empty">Preset does not exists.</string>
     <string name="text_title_roulette">Today\'\'s menu for {0} is...</string>
 
-    <string name="enter_preset_name">Enter your preset name</string>
     <string name="hint_preset_name">Please enter preset name</string>
     <string name="preset_name_empty_error">Preset name can not be empty.</string>
     <string name="preset_update_button">Update</string>
