@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,8 +22,8 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
     private Button restartButton;
 
     private Timer rouletteScheduler;
-    Preset foods;
-    LunchDbAdapter dbAdapter;
+    private Preset foods;
+    private LunchDbAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
