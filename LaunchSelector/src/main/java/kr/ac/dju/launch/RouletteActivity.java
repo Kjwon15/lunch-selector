@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -17,6 +18,7 @@ import kr.ac.dju.launch.db.Preset;
 
 public class RouletteActivity extends ActionBarActivity implements View.OnClickListener {
 
+    private TextView rouletteTitleView;
     private TextView rouletteView;
     private Button restartButton;
 
@@ -31,6 +33,7 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
 
         dbAdapter = new LunchDbAdapter(this);
 
+        rouletteTitleView = (TextView) findViewById(R.id.rouletteTitleView);
         rouletteView = (TextView) findViewById(R.id.rouletteView);
         restartButton = (Button) findViewById(R.id.restartButton);
 
@@ -41,7 +44,17 @@ public class RouletteActivity extends ActionBarActivity implements View.OnClickL
         long rowid = getIntent().getLongExtra(C.EXTRA_PRESET_ROWID, -1);
         foods = dbAdapter.getPreset(rowid);
 
+        setRouletteTitle();
+
         startRoulette();
+    }
+
+    private void setRouletteTitle() {
+        String title = MessageFormat.format(
+                getString(R.string.text_title_roulette),
+                foods.getName()
+        );
+        rouletteTitleView.setText(title);
     }
 
     private void startRoulette() {

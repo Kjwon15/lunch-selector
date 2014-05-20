@@ -9,9 +9,16 @@
     tools:context="kr.ac.dju.launch.RouletteActivity">
 
     <TextView
+        android:id="@+id/rouletteTitleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
         android:id="@+id/rouletteView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rouletteTitleView"
         android:layout_marginTop="@dimen/activity_text_margin"
         android:background="@drawable/background_roulette"
         android:clickable="true"

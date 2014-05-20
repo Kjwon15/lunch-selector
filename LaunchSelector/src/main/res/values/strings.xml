@@ -16,6 +16,7 @@
     <string name="restart_button_text">Restart</string>
     <string name="title_activity_lunch_list">Lunch List</string>
     <string name="text_list_empty">Preset doesn\'t exists.</string>
+    <string name="text_title_roulette">Today\'\'s menu for {0} is...</string>
 
     <string name="enter_preset_name">Enter your preset name</string>
     <string name="hint_preset_name">please enter preset name</string>
