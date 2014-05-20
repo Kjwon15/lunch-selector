@@ -42,6 +42,12 @@ public class PresetListActivity extends ListActivity implements OnClickListener,
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateListViewItem();
+    }
+
     private void setListViewItem() {
         presetList = dbAdapter.fetchAllPresets();
         presetAdapter = new PresetAdapter(this, presetList);

@@ -90,6 +90,10 @@ public class LunchDbAdapter {
         long rowid = preset.getRowId();
         List<Element> elements = preset.getElementList();
 
+        if (rowid == -1) {
+            return createPreset(preset) > 0;
+        }
+
         String[] whereArgs = new String[elements.size()];
         String whereInClause = "";
         for (int i=0; i<elements.size(); i++) {
@@ -123,6 +127,10 @@ public class LunchDbAdapter {
     public boolean updateElement(Element element) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowid = element.getRowId();
+
+        if (rowid == -1) {
+            return createElement(element) > 0;
+        }
 
         ContentValues values = new ContentValues();
         values.put(KEY_PRESET_ID, element.getPresetId());
