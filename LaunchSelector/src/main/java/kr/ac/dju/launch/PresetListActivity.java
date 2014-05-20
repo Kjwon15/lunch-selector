@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,14 +22,11 @@ import kr.ac.dju.launch.db.Preset;
  */
 public class PresetListActivity extends ListActivity implements View.OnClickListener {
 
-    private Button btnOk;
     private Button btnAdd;
 
     private LunchDbAdapter dbAdapter;
     private PresetAdapter presetAdapter;
     private List<Preset> presetList;
-
-    private ListView presetListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +55,9 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
     }
 
     private void InitControllerObject() {
-        btnOk = (Button) findViewById(R.id.btn_select_ok);
         btnAdd = (Button) findViewById(R.id.btn_add_preset);
 
-        btnOk.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
-
-        this.getListView().setSelector(R.drawable.background_selected_listview);
     }
 
     @Override
@@ -77,9 +68,7 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == btnOk.getId()) {
-            clickedButtonSelectOK();
-        } else if (v.getId() == btnAdd.getId()) {
+        if (v.getId() == btnAdd.getId()) {
             clickedButtonAddPreset();
         }
     }
@@ -88,10 +77,6 @@ public class PresetListActivity extends ListActivity implements View.OnClickList
         Intent intent = new Intent(this, EditPresetActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
-    }
-
-    private void clickedButtonSelectOK() {
-        // TODO: make string arrays from elements in DB and send roulette.
     }
 
     private class PresetAdapter extends BaseAdapter {
