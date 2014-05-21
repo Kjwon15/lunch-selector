@@ -33,10 +33,10 @@
             android:name="kr.ac.dju.launch.RouletteActivity"
             android:label="@string/title_activity_roulette"
             android:launchMode="singleInstance"
-            android:parentActivityName=".EditPresetActivity">
+            android:parentActivityName=".PresetListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="kr.ac.dju.launch.MainActivity" />
+                android:value=".PresetListActivity" />
         </activity>
         <activity
             android:name=".PresetListActivity"
