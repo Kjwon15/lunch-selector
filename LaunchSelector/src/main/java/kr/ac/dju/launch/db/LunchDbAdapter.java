@@ -96,7 +96,7 @@ public class LunchDbAdapter {
 
         String[] whereArgs = new String[elements.size()];
         String whereInClause = "";
-        for (int i=0; i<elements.size(); i++) {
+        for (int i = 0; i < elements.size(); i++) {
             if (i != 0) {
                 whereInClause += ", ";
             }
@@ -109,7 +109,7 @@ public class LunchDbAdapter {
         for (Element element : elements) {
             element.setPresetId(rowid);
             boolean succeed = updateElement(element);
-            if (! succeed) {
+            if (!succeed) {
                 createElement(element);
             }
         }
@@ -149,7 +149,7 @@ public class LunchDbAdapter {
     public Preset getPreset(long rowId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(TABLE_PRESETS,
-                new String[] {KEY_ID, KEY_NAME},
+                new String[]{KEY_ID, KEY_NAME},
                 KEY_ID + "=?", new String[]{String.valueOf(rowId)},
                 null, null, null);
         if (cursor.moveToNext()) {
@@ -189,7 +189,7 @@ public class LunchDbAdapter {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Element> list = new ArrayList<Element>();
         Cursor cursor = db.query(TABLE_ELEMENTS,
-                new String[] {KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
+                new String[]{KEY_ID, KEY_PRESET_ID, KEY_CONTENT},
                 KEY_PRESET_ID + "=?",
                 new String[]{String.valueOf(rowId)},
                 null, null, null);

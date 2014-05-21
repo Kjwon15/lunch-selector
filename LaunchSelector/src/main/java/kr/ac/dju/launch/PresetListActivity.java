@@ -17,7 +17,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -106,7 +105,7 @@ public class PresetListActivity extends ListActivity implements OnClickListener,
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        final String[] items = new String[] {
+        final String[] items = new String[]{
                 getString(R.string.action_modify),
                 getString(R.string.action_delete),
         };
