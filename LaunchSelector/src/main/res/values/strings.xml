@@ -15,5 +15,8 @@
     <string name="restart_button_text">Restart</string>
     <string name="title_activity_lunch_list">Lunch List</string>
     <string name="text_list_empty">Preset doesn\'t exists.</string>
+    <string name="notify_title">launch time</string>
+    <string name="notify_summary">It is dinner time.</string>
+    <string name="notify_ticker_text">launch-selector</string>
 
 </resources>
