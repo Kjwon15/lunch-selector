@@ -1,7 +1,6 @@
 package kr.ac.dju.launch;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,13 +19,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import kr.ac.dju.launch.actionbarcompat.ActionBarListActivity;
 import kr.ac.dju.launch.db.LunchDbAdapter;
 import kr.ac.dju.launch.db.Preset;
 
 /**
  * Created by hayan on 14. 5. 11.
  */
-public class PresetListActivity extends ListActivity implements OnClickListener, OnItemClickListener, OnItemLongClickListener {
+public class PresetListActivity extends ActionBarListActivity implements OnClickListener, OnItemClickListener, OnItemLongClickListener {
 
     private Button btnAdd;
 
