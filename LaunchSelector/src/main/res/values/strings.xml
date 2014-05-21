@@ -6,9 +6,9 @@
     <string name="title_activity_splash">Lunch Selector</string>
     <string name="splash_title">Lunch Selector</string>
     <string name="splash_start">Start</string>
-    <string name="add_button_text">Add</string>
+    <string name="add_preset_button_text">Add preset</string>
+    <string name="add_entry_button_text">More entry</string>
     <string name="ok_button_text">OK</string>
-    <string name="add_list_button_text">Add Preset</string>
 
     <string name="title_activity_roulette">Roulette</string>
     <string name="restart_button_text">Restart</string>
