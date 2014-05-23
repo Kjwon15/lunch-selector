@@ -20,11 +20,14 @@ import kr.ac.dju.launch.SplashActivity;
  */
 public class AlarmReceiver extends BroadcastReceiver {
     private static final int REQUEST_CODE = 0;
+    private static final String ACTION_ALARM = "alarm";
+    private static final String ACTION_BOOT = "android.intent.action.BOOT_COMPLETED";
 
     public static void setAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.setAction(ACTION_ALARM);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
@@ -39,6 +42,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (action.equals(ACTION_ALARM)) {
+            notifyAlarm(context);
+        } else if (action.equals(ACTION_BOOT)) {
+            setAlarm(context);
+        }
+    }
+
+    private void notifyAlarm(Context context) {
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent splashIntent = new Intent(context, SplashActivity.class);

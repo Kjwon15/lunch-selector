@@ -42,7 +42,11 @@
             android:name=".PresetListActivity"
             android:label="@string/title_activity_lunch_list" />
 
-        <receiver android:name=".alarm.AlarmReceiver" />
+        <receiver android:name=".alarm.AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
