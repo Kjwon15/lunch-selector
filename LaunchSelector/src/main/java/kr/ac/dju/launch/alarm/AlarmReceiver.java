@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -31,30 +33,28 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Log.d("Alarm", "Alarm set");
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
         Intent splashIntent = new Intent(context, SplashActivity.class);
 
-        String tickerText = context.getResources().getString(R.string.notify_ticker_text);
-        String title = context.getResources().getString(R.string.notify_title);
-        String summary = context.getResources().getString(R.string.notify_summary);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context, 0, splashIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, 0, splashIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification notification = new NotificationCompat.Builder(context)
+                .setTicker(context.getString(R.string.notify_ticker_text))
+                .setContentTitle(context.getString(R.string.notify_title))
+                .setContentText(context.getString(R.string.notify_summary))
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                .build();
 
-        Notification notification =
-                new Notification(R.drawable.ic_launcher, tickerText, System.currentTimeMillis());
-
-        notification.flags = Notification.FLAG_AUTO_CANCEL;
-        notification.defaults = Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE;
-        notification.number = 1;
-
-        notification.setLatestEventInfo(context, title, summary, pendingIntent);
         nm.notify(0, notification);
     }
 }
