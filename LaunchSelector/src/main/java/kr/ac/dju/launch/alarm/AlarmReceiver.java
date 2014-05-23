@@ -60,7 +60,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Notification notification = new NotificationCompat.Builder(context)
                 .setTicker(context.getString(R.string.notify_ticker_text))
-                .setContentTitle(context.getString(R.string.notify_title))
+                .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getString(R.string.notify_summary))
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent)
