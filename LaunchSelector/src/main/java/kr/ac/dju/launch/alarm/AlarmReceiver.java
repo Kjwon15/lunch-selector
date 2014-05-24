@@ -22,8 +22,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     private static final int REQUEST_CODE = 0;
     private static final String ACTION_ALARM = "alarm";
     private static final String ACTION_BOOT = "android.intent.action.BOOT_COMPLETED";
+    private static boolean isAlarmSet = false;
 
     public static void setAlarm(Context context) {
+        if (isAlarmSet) {
+            return;
+        }
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -37,6 +41,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
+        isAlarmSet = true;
         Log.d("Alarm", "Alarm set");
     }
 

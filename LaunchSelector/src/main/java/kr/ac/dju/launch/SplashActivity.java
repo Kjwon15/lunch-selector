@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 
+import kr.ac.dju.launch.alarm.AlarmReceiver;
+
 public class SplashActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button startButton;
@@ -23,6 +25,8 @@ public class SplashActivity extends ActionBarActivity implements View.OnClickLis
 
         startButton = (Button) findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
+
+        AlarmReceiver.setAlarm(this);
     }
 
     @Override
