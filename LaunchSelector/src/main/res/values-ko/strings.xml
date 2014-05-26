@@ -15,6 +15,8 @@
     <string name="title_activity_lunch_list">목록</string>
     <string name="text_list_empty">목록이 존재하지 않습니다.</string>
     <string name="text_title_roulette">오늘의 {0}은...</string>
+    <string name="notify_summary">식사 메뉴를 고르는 게 어려우신가요?</string>
+    <string name="notify_ticker_text">식사시간입니다.</string>
 
     <string name="hint_preset_name">목록의 이름을 넣어주세요.</string>
     <string name="preset_name_empty_error">목록 이름은 공백으로 둘 수 없습니다.</string>

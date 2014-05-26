@@ -15,6 +15,8 @@
     <string name="title_activity_lunch_list">プリセットのリスト</string>
     <string name="text_list_empty">プリセットがいないです。</string>
     <string name="text_title_roulette">今日の{0}は。。。</string>
+    <string name="notify_summary">食事のメニューを選択する事が難しいですか？</string>
+    <string name="notify_ticker_text">食事のじかんです。</string>
 
     <string name="hint_preset_name">プリセート名</string>
     <string name="preset_name_empty_error">プリセット名を空白にする事は出来ません。</string>
