@@ -3,7 +3,7 @@
 
     <string name="app_name">점심 뭐 먹지?</string>
     <string name="action_settings">설정</string>
-    <string name="title_activity_splash">점심 뭐 먹지?</string>
+    <string name="title_activity_edit">프리셋</string>
     <string name="splash_title">점심 뭐 먹지?</string>
     <string name="splash_start">시작</string>
     <string name="add_preset_button_text">목록 추가</string>

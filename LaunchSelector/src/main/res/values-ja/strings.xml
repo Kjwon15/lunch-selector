@@ -3,7 +3,7 @@
 
     <string name="app_name">食事のセレクター</string>
     <string name="action_settings">設定</string>
-    <string name="title_activity_splash">食事のセレクター</string>
+    <string name="title_activity_edit">プリセット</string>
     <string name="splash_title">食事のセレクター</string>
     <string name="splash_start">スタート</string>
     <string name="add_preset_button_text">プイセット追加</string>

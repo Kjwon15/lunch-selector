@@ -3,7 +3,7 @@
 
     <string name="app_name">Lunch Selector</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_splash">Lunch Selector</string>
+    <string name="title_activity_edit">Preset</string>
     <string name="splash_title">Lunch Selector</string>
     <string name="splash_start">Start</string>
     <string name="add_preset_button_text">Add preset</string>
