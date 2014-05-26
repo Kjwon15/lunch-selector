@@ -69,6 +69,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentText(context.getString(R.string.notify_summary))
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
                 .build();
 
