@@ -34,9 +34,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         intent.setAction(ACTION_ALARM);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
 
+        Calendar now = Calendar.getInstance();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 17);
         calendar.set(Calendar.MINUTE, 30);
+
+        if (now.getTimeInMillis() - calendar.getTimeInMillis() > 0) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
