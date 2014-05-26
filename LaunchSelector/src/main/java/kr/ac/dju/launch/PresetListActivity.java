@@ -148,7 +148,7 @@ public class PresetListActivity extends ActionBarListActivity implements OnClick
         });
         builder.setTitle(preset.getName());
         builder.create().show();
-        return false;
+        return true;
     }
 
     private class PresetAdapter extends BaseAdapter {
