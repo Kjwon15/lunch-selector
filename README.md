@@ -13,13 +13,13 @@ Usage
 ![splash-image][]
 ![list-image][]
 ![edit-image][]
-![roullete-image][]
+![roulette-image][]
 ![dialog-image][]
 
 [splash-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-splash.png
 [list-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-list.png
 [edit-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-edit.png
-[roullete-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-roullete.png
+[roulette-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-roulette.png
 [dialog-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-dialog.png
 
 
