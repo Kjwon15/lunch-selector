@@ -10,7 +10,17 @@ This is school project with [hayandev][].
 Usage
 -----
 
-Add your favorite foods into list and start roulette.
+![splash-image][]
+![list-image][]
+![edit-image][]
+![roullete-image][]
+![dialog-image][]
+
+[splash-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-splash.png
+[list-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-list.png
+[edit-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-edit.png
+[roullete-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-roullete.png
+[dialog-image]: https://raw.github.com/Kjwon15/lunch-selector/master/artwork/en-dialog.png
 
 
 Install
