@@ -24,4 +24,9 @@
         android:title="@string/pref_title_vibrate"
         android:defaultValue="true" />
 
+    <kr.ac.dju.launch.alarm.TimePreference
+        android:dependency="notifications_lunch_time"
+        android:key="notifications_time"
+        android:title="Lunch time" />
+
 </PreferenceScreen>
