@@ -29,7 +29,7 @@ public abstract class ActionBarListActivity extends ActionBarActivity {
     protected ListAdapter getListAdapter() {
         ListAdapter adapter = getListView().getAdapter();
         if (adapter instanceof HeaderViewListAdapter) {
-            return ((HeaderViewListAdapter)adapter).getWrappedAdapter();
+            return ((HeaderViewListAdapter) adapter).getWrappedAdapter();
         }
         return adapter;
     }

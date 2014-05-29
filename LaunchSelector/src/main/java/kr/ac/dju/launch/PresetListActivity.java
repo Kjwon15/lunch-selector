@@ -50,7 +50,7 @@ public class PresetListActivity extends ActionBarListActivity implements OnClick
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.addPresetAction:
                 startAddPresetActivity();
                 return true;
