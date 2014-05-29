@@ -147,6 +147,7 @@ public class PresetListActivity extends ActionBarListActivity implements OnClick
             }
         });
         builder.setTitle(preset.getName());
+        builder.setNegativeButton(android.R.string.cancel, null);
         builder.create().show();
         return true;
     }
