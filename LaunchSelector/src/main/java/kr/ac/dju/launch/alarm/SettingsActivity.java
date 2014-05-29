@@ -88,6 +88,11 @@ public class SettingsActivity extends PreferenceActivity {
                 // simple string representation.
                 preference.setSummary(stringValue);
             }
+
+            if (preference.getKey() == "notifications_lunch_time") {
+                // FIXME: toggle alarm.
+            }
+
             return true;
         }
     };
