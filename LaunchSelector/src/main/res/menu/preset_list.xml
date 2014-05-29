@@ -7,4 +7,9 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/add_preset_button_text"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/preferencesAction"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -7,6 +7,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -61,6 +64,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void notifyAlarm(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent splashIntent = new Intent(context, SplashActivity.class);
@@ -68,16 +72,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context, 0, splashIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setTicker(context.getString(R.string.notify_ticker_text))
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getString(R.string.notify_summary))
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                .build();
+                .setSound(Uri.parse(prefs.getString("notifications_ringtone",
+                        "content://settings/system/notification_sound")));
+        if (prefs.getBoolean("notifications_lunch_time", true)) {
+            builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        }
 
-        nm.notify(0, notification);
+        nm.notify(0, builder.build());
     }
 }
