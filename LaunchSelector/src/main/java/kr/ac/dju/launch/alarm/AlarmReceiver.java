@@ -14,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.prefs.Preferences;
 
 import kr.ac.dju.launch.R;
 import kr.ac.dju.launch.SplashActivity;
@@ -32,6 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             return;
         }
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.setAction(ACTION_ALARM);
@@ -39,8 +41,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Calendar now = Calendar.getInstance();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY, prefs.getInt("notification_time.hour", 7));
+        calendar.set(Calendar.MINUTE, prefs.getInt("notification_time.minute", 30));
 
         if (now.getTimeInMillis() - calendar.getTimeInMillis() > 0) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
