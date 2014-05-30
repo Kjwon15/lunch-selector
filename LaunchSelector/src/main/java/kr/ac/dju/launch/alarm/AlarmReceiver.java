@@ -48,6 +48,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
+        alarmManager.cancel(pendingIntent);
+
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
