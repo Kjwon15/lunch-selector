@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import kr.ac.dju.launch.actionbarcompat.ActionBarListActivity;
+import kr.ac.dju.launch.alarm.SettingsActivity;
 import kr.ac.dju.launch.db.LunchDbAdapter;
 import kr.ac.dju.launch.db.Preset;
 
@@ -53,6 +54,9 @@ public class PresetListActivity extends ActionBarListActivity implements OnClick
         switch (item.getItemId()) {
             case R.id.addPresetAction:
                 startAddPresetActivity();
+                return true;
+            case R.id.preferencesAction:
+                startPreferencesActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -112,6 +116,11 @@ public class PresetListActivity extends ActionBarListActivity implements OnClick
     private void startAddPresetActivity() {
         Intent intent = new Intent(this, EditPresetActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+
+    private void startPreferencesActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 

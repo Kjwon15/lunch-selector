@@ -1,0 +1,16 @@
+<resources>
+    <string name="title_activity_settings">설정</string>
+
+    <!-- Strings related to Settings -->
+
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">알림</string>
+
+    <string name="pref_title_lunch_time_notifications">점심식사 알림</string>
+
+    <string name="pref_title_ringtone">알림음</string>
+    <string name="pref_ringtone_silent">무음</string>
+
+    <string name="pref_title_vibrate">진동</string>
+</resources>

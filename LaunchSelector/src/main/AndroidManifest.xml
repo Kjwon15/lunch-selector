@@ -42,6 +42,14 @@
         <activity
             android:name=".PresetListActivity"
             android:label="@string/title_activity_lunch_list" />
+        <activity
+            android:name=".alarm.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".PresetListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PresetListActivity" />
+        </activity>
 
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
