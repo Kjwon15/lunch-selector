@@ -14,6 +14,7 @@ This is school project with [hayandev][].
 [store badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_45.png
 [market link]: https://play.google.com/store/apps/details?id=kr.ac.dju.launch
 
+
 Screenshots
 -----------
 
