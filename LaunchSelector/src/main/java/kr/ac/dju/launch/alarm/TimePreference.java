@@ -15,7 +15,7 @@ import android.widget.TimePicker;
 public class TimePreference extends DialogPreference {
     TimePicker timePicker;
 
-    private static final int DEFAULT_HOUR = 7;
+    private static final int DEFAULT_HOUR = 17;
     private static final int DEFAULT_MINUTE = 30;
 
     public TimePreference(Context context, AttributeSet attributes) {
