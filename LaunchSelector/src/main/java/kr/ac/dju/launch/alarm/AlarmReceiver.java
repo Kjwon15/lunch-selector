@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.prefs.Preferences;
 
@@ -51,7 +52,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
-        Log.d("Alarm", "Alarm set");
+        Log.d("Alarm",
+                MessageFormat.format("Alarm set at {0}", calendar.getTime().toString()));
     }
 
     @Override
