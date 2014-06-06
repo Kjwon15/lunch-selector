@@ -39,6 +39,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, prefs.getInt("notifications_time.hour", 17));
         calendar.set(Calendar.MINUTE, prefs.getInt("notifications_time.minute", 30));
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         if (now.getTimeInMillis() - calendar.getTimeInMillis() > 0) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
